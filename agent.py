@@ -104,13 +104,18 @@ class Assistant:
         
         # Try to extract JSON from the response
         json_output = self._extract_json_from_response(result)
-        
-        return {"messages": result, "json_output": json_output}
+        new_state = {**state, "messages": result, "json_output": json_output}
+        return new_state
+
     
     def _extract_json_from_response(self, result) -> Optional[dict]:
         """Extract JSON from the LLM response"""
         import json
         import re
+        content = getattr(result, "content", "")
+        if isinstance(content, list):
+            content = " ".join(x.get("text", "") for x in content if isinstance(x, dict))
+
         
         content = result.content if hasattr(result, 'content') else str(result)
         
@@ -332,20 +337,24 @@ from langgraph.graph import StateGraph, START, END
 from langgraph.prebuilt import tools_condition, ToolNode
 
 def route_after_assistant(state: State) -> str:
-    """Decide where to go after assistant responds"""
     messages = state.get("messages", [])
     if messages:
         last_message = messages[-1]
         tool_calls = getattr(last_message, 'tool_calls', [])
         if tool_calls:
+            state["tool_retry_count"] = state.get("tool_retry_count", 0) + 1
+            if state["tool_retry_count"] > 2:
+                print("⚠️ Too many tool retries — skipping to summary_agent.")
+                state["tool_retry_count"] = 0
+                return "summary_agent"
             return "tools"
-    
-    # If we have JSON output, move to summary generation
+
     if state.get("json_output"):
+        state["tool_retry_count"] = 0  # reset counter
         return "summary_agent"
-    
-    # Otherwise, end (shouldn't normally reach here)
+
     return END
+
 
 builder = StateGraph(State)
 
@@ -405,18 +414,48 @@ def run_agent(call_transcription: str, customer_info: dict = None, agent_info: d
 
     return output
 
-    
+# ==========================================================
+# JSON STATE SAVER (avoids "HumanMessage not serializable")
+# ==========================================================
 import json, os
+from pathlib import Path
+from datetime import datetime
+
+def _serialize(obj):
+    """Handle unsupported types when saving to JSON."""
+    if isinstance(obj, (str, int, float, bool)) or obj is None:
+        return obj
+    if isinstance(obj, dict):
+        return {k: _serialize(v) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [_serialize(x) for x in obj]
+    # Handle LangChain message-like objects
+    if hasattr(obj, "type") and hasattr(obj, "content"):
+        return {
+            "type": getattr(obj, "type", "unknown"),
+            "content": getattr(obj, "content", str(obj))
+        }
+    # Fallback to string
+    return str(obj)
 
 def save_json_state(data: dict, filename: str = "current_call_state.json"):
-    """Write the current agent state to a JSON file (overwrites each time)."""
+    """Write or update the current agent state as a JSON file (cleaned)."""
     os.makedirs("call_state", exist_ok=True)
-    path = os.path.join("call_state", filename)
+    path = Path("call_state") / filename
+
+    snapshot = {
+        "timestamp": datetime.now().isoformat(timespec="seconds"),
+        "data": _serialize(data)
+    }
+
     try:
         with open(path, "w", encoding="utf-8") as f:
-            json.dump(data, f, indent=2, ensure_ascii=False)
+            json.dump(snapshot, f, indent=2, ensure_ascii=False)
+        print(f"💾 JSON state updated → {path.absolute()}")
     except Exception as e:
         print(f"⚠️ Error writing {path}: {e}")
+
+import json, os
 
 
 if __name__ == "__main__":
