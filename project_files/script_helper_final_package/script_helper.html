@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Call Center - Script Helper</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Roboto', sans-serif; margin: 0; background-color: #f4f5f7; }
+        .title-image { display: block; margin: 10px auto; max-width: 300px; height: auto; }
+        .app-container { display: flex; height: 100vh; }
+        .sidebar { width: 240px; background-color: #ffffff; color: #333; display: flex; flex-direction: column; border-right: 1px solid #e0e0e0; }
+        .sidebar-header { font-size: 1.2em; font-weight: 700; padding: 20px; text-align: center; color: #333; }
+        .sidebar-logo { width: 80%; margin: 20px auto; display: block; }
+        
+        .department-list { padding: 0 20px; }
+        .department-list ul { list-style: none; padding: 0; margin: 0; }
+        .department-list li { display: flex; align-items: center; padding: 15px 0; font-size: 1.1em; }
+        .status-dot { height: 10px; width: 10px; border-radius: 50%; margin-right: 15px; }
+        .status-dot.online { background-color: #28a745; }
+        .status-dot.offline { background-color: #dc3545; }
+
+        .agent-profile-card {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            margin-top: auto;
+            border-top: 1px solid #e0e0e0;
+        }
+        .agent-profile-card img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+        .agent-info {
+            display: flex;
+            flex-direction: column;
+        }
+        .agent-name {
+            font-weight: 700;
+        }
+        .agent-role {
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+        .settings-icon {
+            margin-left: auto;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+
+        .main-content { flex-grow: 1; padding: 20px; overflow-y: auto; }
+        .content-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
+        .card { background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .card h2 { font-size: 1.5em; margin-top: 0; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        .data-point { margin-bottom: 15px; }
+        .data-point .label { display: block; font-size: 0.8em; color: #6c757d; text-transform: uppercase; margin-bottom: 3px; }
+        .value-input { font-size: 1.1em; font-weight: 500; border: none; background: #f1f3f4; padding: 8px 12px; border-radius: 4px; width: 100%; box-sizing: border-box; }
+        .question { list-style-type: none; margin-bottom: 15px; font-size: 1.1em; }
+        .question.completed { color: #999; text-decoration: line-through; }
+        .transfer-button { width: 100%; padding: 15px; font-size: 1.2em; border: none; border-radius: 5px; cursor: pointer; color: white; margin-top: 20px; }
+        .simulator-box { margin-top: auto; padding: 20px; border-top: 1px solid #ddd; }
+        .sim-button { display: block; width: 100%; padding: 10px; margin-top: 5px; background-color: #6c757d; color: white; border: none; border-radius: 3px; cursor: pointer; }
+        #reset-button { background-color: #d9534f; }
+        .footer-image-container { margin-top: 20px; text-align: center; display: flex; justify-content: center; align-items: center; gap: 5px; }
+        .footer-image-container img {
+            height: 150px;
+            object-fit: cover;
+            width: 24%;
+            border-radius: 8px;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .modal-content h3 {
+            margin-top: 0;
+            font-size: 1.4em;
+        }
+        .modal-buttons {
+            margin-top: 20px;
+        }
+        .modal-btn {
+            padding: 10px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            margin: 0 10px;
+        }
+        #modal-confirm-btn {
+            background-color: #28a745;
+            color: white;
+        }
+        #modal-cancel-btn {
+            background-color: #dc3545;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <img src="palace_company_logo.png" alt="Palace Company Logo" class="sidebar-logo">
+            <div class="sidebar-header">Departments</div>
+            <div class="department-list">
+                <ul>
+                    <li><span class="status-dot online"></span><span>Sales</span></li>
+                    <li><span class="status-dot offline"></span><span>Guest Services</span></li>
+                    <li><span class="status-dot offline"></span><span>Reservations</span></li>
+                </ul>
+            </div>
+            <div class="agent-profile-card">
+                <img src="fotos/nuevo_1.jpg" alt="Agent">
+                <div class="agent-info">
+                    <span class="agent-name">Emil Sánchez</span>
+                    <span class="agent-role">Primary Agent</span>
+                </div>
+                <span class="settings-icon">&#9881;</span>
+            </div>
+            <div class="simulator-box" style="display: none;">
+                <h2>Load Scenario</h2>
+                <button class="sim-button" id="load-familia">Load Family Scenario</button>
+                <button class="sim-button" id="load-romantico">Load Couple Scenario</button>
+                <button class="sim-button" id="reset-button">Reset</button>
+            </div>
+        </aside>
+        <div class="main-content">
+            <div class="content-grid">
+                <div class="card" id="personal-data">
+                    <h2>Client Information</h2>
+                    <div class="data-point"><span class="label">Name</span><input type="text" class="value-input" id="value-name"></div>
+                    <div class="data-point"><span class="label">Membership Status</span><input type="text" class="value-input" id="value-member"></div>
+                    <div class="data-point"><span class="label">Call Reason</span><input type="text" class="value-input" id="value-reason"></div>
+                </div>
+                <div class="card" id="agent-script">
+                    <h2>Agent Script</h2>
+                    <ul id="questions-list" style="padding-left: 0;">
+                        <li class="question" id="q-name">With whom do I have the pleasure of speaking?</li>
+                        <li class="question" id="q-member">Are you a Palace Elite Member?</li>
+                        <li class="question" id="q-reason">Do you have an existing reservation or would you like to make a new one?</li>
+                    </ul>
+                    <div id="transfer-buttons-container"></div>
+                </div>
+            </div>
+            <div class="footer-image-container" id="gallery">
+            </div>
+        </div>
+    </div>
+    <div id="confirmation-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h3 id="modal-title">Are you sure?</h3>
+            <p id="modal-text">Do you want to proceed with the transfer?</p>
+            <div class="modal-buttons">
+                <button id="modal-confirm-btn" class="modal-btn">Confirm</button>
+                <button id="modal-cancel-btn" class="modal-btn">Cancel</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const gallery = document.getElementById('gallery');
+            const images = [
+                "fotos/beach-palace-cancun.jpg", "fotos/le-blanc-spa-resort-cancun.jpg",
+                "fotos/le-blanc-spa-resort-los-cabos.jpg", "fotos/moon-palace-cancun.jpg", "fotos/playacar-palace.jpg"
+            ];
+            const randomImages = [...images].sort(() => 0.5 - Math.random()).slice(0, 4);
+            randomImages.forEach(src => {
+                const img = document.createElement('img');
+                img.src = src;
+                gallery.appendChild(img);
+            });
+
+            const inputs = {
+                name: document.getElementById('value-name'),
+                member_status: document.getElementById('value-member'),
+                reason: document.getElementById('value-reason')
+            };
+            const questions = {
+                name: document.getElementById('q-name'),
+                member_status: document.getElementById('q-member'),
+                reason: document.getElementById('q-reason')
+            };
+            const transferContainer = document.getElementById('transfer-buttons-container');
+            let currentClientData = {}; // To hold the latest data from the server
+
+            function updateUI(data) {
+                currentClientData = data; // Always keep the latest server state
+                const client = data.client || {};
+                const name = `${client.nombre || ''} ${client.apellidos || ''}`.trim();
+
+                // Only update if the field is not actively being edited
+                if (document.activeElement !== inputs.name) {
+                    inputs.name.value = name;
+                }
+                if (document.activeElement !== inputs.member_status) {
+                    inputs.member_status.value = client.member_status || '';
+                }
+                if (document.activeElement !== inputs.reason) {
+                    const reasonMap = {
+                        'nueva_reservacion': 'New Reservation',
+                        'consulta_existente': 'Existing Reservation Inquiry'
+                    };
+                    inputs.reason.value = reasonMap[client.motivo] || (client.motivo ? client.motivo.replace(/_/g, ' ') : '');
+                }
+                
+                checkCompletion();
+            }
+
+            function checkCompletion() {
+                const isComplete = {
+                    name: inputs.name.value.trim() !== '',
+                    member_status: inputs.member_status.value.trim() !== '',
+                    reason: inputs.reason.value.trim() !== ''
+                };
+
+                questions.name.classList.toggle('completed', isComplete.name);
+                questions.member_status.classList.toggle('completed', isComplete.member_status);
+                questions.reason.classList.toggle('completed', isComplete.reason);
+                
+                transferContainer.innerHTML = '';
+                if (isComplete.name && isComplete.member_status && isComplete.reason) {
+                    const btn = document.createElement('button');
+                    btn.className = 'transfer-button';
+                    
+                    if ((currentClientData.client && currentClientData.client.tiene_reservacion) || (inputs.reason.value || '').toLowerCase().includes('existing')) {
+                        btn.textContent = 'Transfer to Reservations';
+                        btn.style.backgroundColor = '#34a853';
+                    } else if ((inputs.reason.value || '').toLowerCase().includes('new') || (inputs.reason.value || '').toLowerCase().includes('nueva')) {
+                        btn.textContent = 'Transfer to Sales';
+                        btn.style.backgroundColor = '#4285f4';
+                    } else {
+                        btn.textContent = 'Transfer to Support';
+                        btn.style.backgroundColor = '#6c757d';
+                    }
+
+                    btn.onclick = () => {
+                        const modal = document.getElementById('confirmation-modal');
+                        const modalContent = modal.querySelector('.modal-content');
+                        modalContent.innerHTML = `
+                            <h3 id="modal-title">Are you sure?</h3>
+                            <p id="modal-text">Do you want to proceed with the transfer?</p>
+                            <div class="modal-buttons">
+                                <button id="modal-confirm-btn" class="modal-btn">Confirm</button>
+                                <button id="modal-cancel-btn" class="modal-btn">Cancel</button>
+                            </div>
+                        `;
+                        attachModalListeners();
+                        modal.style.display = 'flex';
+                    };
+                    transferContainer.appendChild(btn);
+                }
+            }
+
+            function connectWebSocket() {
+                const ws = new WebSocket(`ws://${window.location.host}`);
+
+                ws.onopen = () => console.log('WebSocket connection established.');
+                ws.onmessage = (event) => {
+                    const data = JSON.parse(event.data);
+                    updateUI(data);
+                };
+                ws.onclose = () => {
+                    console.log('WebSocket connection closed. Reconnecting...');
+                    setTimeout(connectWebSocket, 3000);
+                };
+                ws.onerror = (error) => console.error('WebSocket error:', error);
+            }
+
+            function attachModalListeners() {
+                const modal = document.getElementById('confirmation-modal');
+                const confirmBtn = document.getElementById('modal-confirm-btn');
+                const cancelBtn = document.getElementById('modal-cancel-btn');
+
+                if (confirmBtn) {
+                    confirmBtn.onclick = () => {
+                        const transferBtn = transferContainer.querySelector('.transfer-button');
+                        const transferText = transferBtn ? transferBtn.textContent : 'Transfer';
+                        const modalContent = modal.querySelector('.modal-content');
+                        
+                        modalContent.innerHTML = `<h3>${transferText} successful!</h3>`;
+
+                        setTimeout(() => {
+                            modal.style.display = 'none';
+                            resetScenario();
+                        }, 2500);
+                    };
+                }
+                
+                if (cancelBtn) {
+                    cancelBtn.onclick = () => {
+                        modal.style.display = 'none';
+                    };
+                }
+            }
+            attachModalListeners();
+
+            async function resetScenario() {
+                // This now only clears the UI, it does not post to the server.
+                updateUI({ client: {} });
+            }
+
+            // --- Event Listeners for local UI update ---
+            inputs.name.addEventListener('input', checkCompletion);
+            inputs.member_status.addEventListener('input', checkCompletion);
+            inputs.reason.addEventListener('input', checkCompletion);
+
+            connectWebSocket();
+        });
+    </script>
+</body>
+</html>

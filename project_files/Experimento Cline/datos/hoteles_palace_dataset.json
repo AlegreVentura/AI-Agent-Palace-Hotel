@@ -1,0 +1,133 @@
+{
+  "hoteles": [
+    {
+      "id": "moon_cancun",
+      "nombre": "Moon Palace Cancún",
+      "ciudad": "Cancún",
+      "pais": "México",
+      "codigo_pais": "MX",
+      "marca": "Moon Palace Resorts"
+    },
+    {
+      "id": "leblanc_cancun",
+      "nombre": "Le Blanc Spa Resort Cancún",
+      "ciudad": "Cancún",
+      "pais": "México",
+      "codigo_pais": "MX",
+      "marca": "Le Blanc Spa Resorts"
+    },
+    {
+      "id": "leblanc_cabo",
+      "nombre": "Le Blanc Spa Resort Los Cabos",
+      "ciudad": "Los Cabos",
+      "pais": "México",
+      "codigo_pais": "MX",
+      "marca": "Le Blanc Spa Resorts"
+    },
+    {
+      "id": "beach_palace",
+      "nombre": "Beach Palace Cancún",
+      "ciudad": "Cancún",
+      "pais": "México",
+      "codigo_pais": "MX",
+      "marca": "Palace Resorts"
+    },
+    {
+      "id": "cozumel_palace",
+      "nombre": "Cozumel Palace",
+      "ciudad": "Cozumel",
+      "pais": "México",
+      "codigo_pais": "MX",
+      "marca": "Palace Resorts"
+    },
+    {
+      "id": "playacar_palace",
+      "nombre": "Playacar Palace",
+      "ciudad": "Playa del Carmen",
+      "pais": "México",
+      "codigo_pais": "MX",
+      "marca": "Palace Resorts"
+    },
+    {
+      "id": "baglioni_maldives",
+      "nombre": "Baglioni Resort Maldives",
+      "ciudad": "Dhaalu Atoll",
+      "pais": "Maldivas",
+      "codigo_pais": "MV",
+      "marca": "Baglioni Hotels & Resorts"
+    },
+    {
+      "id": "baglioni_sardinia",
+      "nombre": "Baglioni Resort Sardinia",
+      "ciudad": "San Teodoro, Cerdeña",
+      "pais": "Italia",
+      "codigo_pais": "IT",
+      "marca": "Baglioni Hotels & Resorts"
+    }
+  ],
+  "por_pais": {
+    "MX": {
+      "pais": "México",
+      "hoteles": [
+        {
+          "id": "moon_cancun",
+          "nombre": "Moon Palace Cancún",
+          "ciudad": "Cancún",
+          "marca": "Moon Palace Resorts"
+        },
+        {
+          "id": "leblanc_cancun",
+          "nombre": "Le Blanc Spa Resort Cancún",
+          "ciudad": "Cancún",
+          "marca": "Le Blanc Spa Resorts"
+        },
+        {
+          "id": "leblanc_cabo",
+          "nombre": "Le Blanc Spa Resort Los Cabos",
+          "ciudad": "Los Cabos",
+          "marca": "Le Blanc Spa Resorts"
+        },
+        {
+          "id": "beach_palace",
+          "nombre": "Beach Palace Cancún",
+          "ciudad": "Cancún",
+          "marca": "Palace Resorts"
+        },
+        {
+          "id": "cozumel_palace",
+          "nombre": "Cozumel Palace",
+          "ciudad": "Cozumel",
+          "marca": "Palace Resorts"
+        },
+        {
+          "id": "playacar_palace",
+          "nombre": "Playacar Palace",
+          "ciudad": "Playa del Carmen",
+          "marca": "Palace Resorts"
+        }
+      ]
+    },
+    "MV": {
+      "pais": "Maldivas",
+      "hoteles": [
+        {
+          "id": "baglioni_maldives",
+          "nombre": "Baglioni Resort Maldives",
+          "ciudad": "Dhaalu Atoll",
+          "marca": "Baglioni Hotels & Resorts"
+        }
+      ]
+    },
+    "IT": {
+      "pais": "Italia",
+      "hoteles": [
+        {
+          "id": "baglioni_sardinia",
+          "nombre": "Baglioni Resort Sardinia",
+          "ciudad": "San Teodoro, Cerdeña",
+          "marca": "Baglioni Hotels & Resorts"
+        }
+      ]
+    }
+  }
+}

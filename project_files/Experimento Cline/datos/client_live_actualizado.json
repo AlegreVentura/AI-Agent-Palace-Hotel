@@ -1,0 +1,21 @@
+{
+  "meta": {},
+  "client": {
+    "nombre": "Mauricio",
+    "apellidos": "Hernández Soto",
+    "email": "",
+    "member_status": "",
+    "telefono": "",
+    "tiene_reservacion": false,
+    "tipo_huesped": "",
+    "motivo": "",
+    "pais": "",
+    "resort": ""
+  },
+  "apis": {},
+  "llamada": {
+    "ongoing_call": 1
+  },
+  "analisis_emociones": {},
+  "resumen_llamada_md": ""
+}

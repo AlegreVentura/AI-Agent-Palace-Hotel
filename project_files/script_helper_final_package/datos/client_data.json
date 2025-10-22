@@ -1,0 +1,19 @@
+{
+  "meta": {},
+  "client": {
+    "nombre": "",
+    "apellidos": "",
+    "email": "",
+    "member_status": "",
+    "telefono": "",
+    "tiene_reservacion": false,
+    "tipo_huesped": "",
+    "motivo": "",
+    "pais": "",
+    "resort": ""
+  },
+  "apis": {},
+  "llamada": {},
+  "analisis_emociones": {},
+  "resumen_llamada_md": ""
+}

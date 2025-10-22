@@ -1,0 +1,116 @@
+{
+  "meta": {
+    "base_url": "https://office-hours-buildathon.palaceresorts.com",
+    "generated_at": "2025-10-21T12:10:00Z",
+    "scenario": "familia_tradicional_moon_cancun"
+  },
+  "client": {
+    "nombre": "Mauricio",
+    "apellidos": "Hernández Soto",
+    "email": "mauricio.hdez+demo@ejemplo.mx",
+    "member_status":"Palace Elite",
+    "telefono": "+52 33 2715 0846",
+    "tiene_reservacion": false,
+    "tipo_huesped": "familia_tradicional",
+    "motivo": "nueva_reservacion",
+    "pais": "MX",
+    "resort": "moon_cancun"
+  },
+  "apis": {
+    "health": {
+      "request": {
+        "method": "GET",
+        "url": "https://office-hours-buildathon.palaceresorts.com/health"
+      },
+      "response": {
+        "status": "healthy",
+        "version": "1.0.0",
+        "data": {
+          "properties": 8,
+          "reservations": 3920451,
+          "channels": 16,
+          "uptime": "72h 10m"
+        }
+      }
+    },
+    "property": {
+      "request": {
+        "method": "GET",
+        "url": "https://office-hours-buildathon.palaceresorts.com/api/properties/moon_cancun"
+      },
+      "response": {
+        "id": "moon_cancun",
+        "nombre": "Moon Palace Cancún",
+        "ubicacion": {
+          "ciudad": "Cancún",
+          "pais": "MX"
+        },
+        "tipos_habitacion": [
+          "deluxe_garden",
+          "family_suite",
+          "suite_swim_up"
+        ]
+      }
+    },
+    "availability": {
+      "request": {
+        "method": "POST",
+        "url": "https://office-hours-buildathon.palaceresorts.com/api/availability",
+        "body": {
+          "property_id": "moon_cancun",
+          "check_in_date": "2025-12-20",
+          "check_out_date": "2025-12-27",
+          "room_type": "suite_swim_up"
+        }
+      },
+      "response": {
+        "available": true,
+        "remaining": 7,
+        "property_id": "moon_cancun",
+        "room_type": "suite_swim_up"
+      }
+    },
+    "pricing": {
+      "request": {
+        "method": "POST",
+        "url": "https://office-hours-buildathon.palaceresorts.com/api/pricing",
+        "body": {
+          "property_id": "moon_cancun",
+          "room_type": "suite_swim_up",
+          "check_in_date": "2025-12-20",
+          "check_out_date": "2025-12-27",
+          "num_guests": 4,
+          "customer_segment": "seg_family_traditional",
+          "lifetime_value_usd": 12000
+        }
+      },
+      "response": {
+        "dates": {
+          "num_nights": 7
+        },
+        "base_pricing": {
+          "base_price_per_night_usd": 980.0
+        },
+        "final_pricing": {
+          "average_per_night_usd": 835.7
+        },
+        "discounts": {
+          "loyalty": {
+            "amount_usd": 300.0
+          }
+        },
+        "summary": {
+          "total_price_usd": 5849.9,
+          "savings_usd": 420.0
+        }
+      }
+    }
+  },
+  "llamada": {
+    "ongoing_call": 0
+  },
+  "analisis_emociones": {
+    "emocion_principal": 2
+  },
+  "resumen_llamada_md": "### Call Summary\n**Client:** Mauricio Hernández Soto (traditional family, new reservation)\n**Resort:** **Moon Palace Cancún** (Cancún, MX)\n**Dates:** **Dec 20–27, 2025** · **Type:** *suite_swim_up* · **Availability:** **Yes** ( **7** remaining)\n**Avg. price/night:** **USD 835.7** · **Estimated total:** **USD 5,849.9** · **Loyalty savings:** **USD 420**\n**Systems:** status **healthy**, version **1.0.0**\n\n> **Next step:** validate guests (4) and confirm reservation."
+}

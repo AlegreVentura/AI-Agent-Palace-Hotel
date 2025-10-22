@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Dashboard</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" rel="stylesheet" />
+    <link href="material-dashboard-master/assets/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="material-dashboard-master/assets/css/nucleo-svg.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link id="pagestyle" href="material-dashboard-master/assets/css/material-dashboard.css?v=3.2.0" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="style.css?v=999">
+</head>
+<body class="g-sidenav-show bg-gray-100">
+  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-radius-lg fixed-start ms-2 bg-white my-2" id="sidenav-main">
+    <div class="sidenav-header">
+      <a class="navbar-brand m-0" href="#">
+        <img src="palace_company_logo.png" id="sidebar-logo" alt="main_logo">
+      </a>
+    </div>
+    <hr class="horizontal dark mt-0 mb-2">
+    <div class="collapse navbar-collapse w-auto" id="sidenav-collapse-main">
+      <ul class="navbar-nav" id="client-list">
+        <li class="nav-item mt-3">
+          <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-8">Clients</h6>
+        </li>
+        <!-- Client items will be dynamically inserted here -->
+      </ul>
+    </div>
+    <div class="sidenav-footer mx-3 mt-auto">
+      <div class="card shadow-none" id="sidenavCard">
+        <div class="card-body text-start p-3 w-100">
+          <div class="row">
+            <div class="col-12">
+              <div class="user-profile-layout">
+                <div class="avatar avatar-lg me-3">
+                  <img src="nuevo_1.jpg" alt="avatar">
+                </div>
+                <div class="user-info">
+                  <h5 class="mb-0">Jhoshua</h5>
+                  <p class="text-xs mb-0">Sales Agent</p>
+                </div>
+                <a href="#" class="settings-icon ms-auto">
+                  <i class="material-symbols-rounded">settings</i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <main class="main-content position-relative border-radius-lg ">
+    <div id="call-status-banner" class="alert" role="alert">
+        <!-- Call status will be inserted here -->
+    </div>
+    <div class="container-fluid py-2" id="main-dashboard-content">
+        <div class="row" id="summary-cards">
+            <!-- Summary cards will be inserted here -->
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-lg-7 mb-lg-0 mb-4">
+                <div class="card">
+                    <div class="card-body" id="personal-info">
+                        <h3 class="card-title">Personal Data</h3>
+                        <!-- Personal data will be inserted here -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="card">
+                    <div class="card-body" id="preferences-info">
+                        <h3 class="card-title">Preferences</h3>
+                        <!-- Preferences will be inserted here -->
+                    </div>
+                </div>
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <h3 class="card-title">Reservation Dates</h3>
+                        <input type="text" id="date-picker" class="form-control" placeholder="Select Dates">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="horizontal-divider"></div>
+
+        <div class="row mt-4">
+            <div class="col-lg-7 mb-lg-0 mb-4">
+                <h2 id="recommended-options-title">Selected Option</h2>
+                <div id="hotel-cards" class="row">
+                    <!-- Hotel flashcards will be inserted here -->
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="card" id="call-summary-card" style="display: none;">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h3 class="card-title mb-0">Call Summary</h3>
+                            <div id="emotion-indicator" class="fs-2"></div>
+                        </div>
+                        <div id="call-summary-content"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col-12 text-center">
+            <button id="confirm-reservation" class="btn btn-primary">Confirm Reservation</button>
+          </div>
+        </div>
+    </div>
+    <div class="container-fluid py-2" id="no-clients-view" style="display: none;">
+        <div class="row">
+            <div class="col-12 text-center mt-5">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">No pending tasks at the moment</h2>
+                        <p class="card-text">You have completed all reservations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </main>
+    <script src="material-dashboard-master/assets/js/core/popper.min.js"></script>
+    <script src="material-dashboard-master/assets/js/core/bootstrap.min.js"></script>
+    <script src="material-dashboard-master/assets/js/plugins/perfect-scrollbar.min.js"></script>
+    <script src="material-dashboard-master/assets/js/plugins/smooth-scrollbar.min.js"></script>
+    <script src="material-dashboard-master/assets/js/material-dashboard.min.js?v=3.2.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="script.js?v=999"></script>
+
+    <!-- The Modal -->
+    <div id="confirmationModal" class="modal">
+      <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h2>Confirm Reservation</h2>
+        <p id="modal-summary"></p>
+        <button id="modal-confirm-btn" class="btn btn-primary">Confirm</button>
+        <button id="modal-cancel-btn" class="btn btn-secondary">Cancel</button>
+      </div>
+    </div>
+</body>
+</html>

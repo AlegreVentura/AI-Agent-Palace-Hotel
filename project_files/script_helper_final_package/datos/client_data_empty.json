@@ -1,0 +1,32 @@
+{
+  "meta": {
+    "base_url": "",
+    "generated_at": "",
+    "scenario": ""
+  },
+  "client": {
+    "nombre": "",
+    "apellidos": "",
+    "email": "",
+    "member_status": "",
+    "telefono": "",
+    "tiene_reservacion": false,
+    "tipo_huesped": "",
+    "motivo": "",
+    "pais": "",
+    "resort": ""
+  },
+  "apis": {
+    "health": {},
+    "property": {},
+    "availability": {},
+    "pricing": {}
+  },
+  "llamada": {
+    "ongoing_call": 0
+  },
+  "analisis_emociones": {
+    "emocion_principal": 0
+  },
+  "resumen_llamada_md": "### Call Summary\nNo call data available."
+}

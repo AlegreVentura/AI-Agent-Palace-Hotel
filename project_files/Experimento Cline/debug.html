@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Debug Sidebar</title>
+    <style>
+        body { font-family: sans-serif; display: flex; }
+        .sidenav {
+            width: 250px;
+            height: 100vh;
+            border-right: 1px solid #ccc;
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+            background-color: #f8f9fa;
+        }
+        .sidenav-header { text-align: center; border-bottom: 1px solid #ccc; padding-bottom: 1rem; }
+        #sidebar-logo {
+            width: 100%; /* Use all available width */
+            height: 150px;  /* Force a very large height */
+            object-fit: contain; /* Do not deform */
+        }
+        #client-list { list-style: none; padding: 0; margin-top: 1rem; }
+        .client-item a { display: block; padding: 0.75rem; border-radius: 4px; text-decoration: none; color: #333; }
+        .client-item a.active { background-color: #344767; color: white; }
+        #controls { margin-left: 2rem; }
+    </style>
+</head>
+<body>
+
+    <aside class="sidenav">
+        <div class="sidenav-header">
+            <img src="palace_company_logo.png" id="sidebar-logo" alt="main_logo">
+        </div>
+        <ul id="client-list">
+            <li class="nav-item mt-3"><h6>CLIENTS</h6></li>
+            <!-- Clients will be inserted here -->
+        </ul>
+    </aside>
+
+    <div id="controls">
+        <h1>Debugging Controls</h1>
+        <p>Current Client: <strong id="current-client-debug">None</strong></p>
+        <button id="confirm-btn">Confirm and Remove Current Client</button>
+        <div id="log"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const clientListEl = document.getElementById('client-list');
+            const currentClientDebugEl = document.getElementById('current-client-debug');
+            const logEl = document.getElementById('log');
+            const confirmBtn = document.getElementById('confirm-btn');
+
+            let scenarioQueue = ['familia', 'romantico'];
+            let currentScenario = null;
+
+            function log(message) {
+                console.log(message);
+                logEl.innerHTML += `<p>${message}</p>`;
+            }
+
+            function renderClientList() {
+                clientListEl.querySelectorAll('.client-item').forEach(item => item.remove());
+                scenarioQueue.forEach(scenario => {
+                    const clientItem = document.createElement('li');
+                    clientItem.className = 'nav-item client-item';
+                    const link = document.createElement('a');
+                    link.href = '#';
+                    link.textContent = scenario === 'familia' ? 'Moon Family' : 'Le Blanc Couple';
+                    if (scenario === currentScenario) {
+                        link.classList.add('active');
+                    }
+                    clientItem.appendChild(link);
+                    clientListEl.appendChild(clientItem);
+                });
+                currentClientDebugEl.textContent = currentScenario || 'None';
+                log(`Rendered list. Queue: [${scenarioQueue.join(', ')}]. Current: ${currentScenario}`);
+            }
+            
+            confirmBtn.addEventListener('click', () => {
+                log(`--- Confirming: ${currentScenario} ---`);
+                if (!currentScenario) {
+                    log("No client to remove.");
+                    return;
+                }
+                
+                // Definitive, foolproof logic
+                scenarioQueue = scenarioQueue.filter(s => s !== currentScenario);
+                log(`New queue after filtering: [${scenarioQueue.join(', ')}]`);
+
+                // Load next or show empty
+                if (scenarioQueue.length > 0) {
+                    currentScenario = scenarioQueue[0];
+                } else {
+                    currentScenario = null;
+                    log("All clients removed.");
+                }
+                renderClientList();
+            });
+
+            // Initial load
+            currentScenario = scenarioQueue[0];
+            renderClientList();
+        });
+    </script>
+
+</body>
+</html>

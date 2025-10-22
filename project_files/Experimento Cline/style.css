@@ -1,0 +1,91 @@
+/* --- GENERAL STYLING --- */
+body {
+    font-size: 16px; /* Increased base font size */
+}
+
+.toolbar { margin-bottom: 1.5rem; }
+#summary-cards .card { margin-bottom: 1.5rem; }
+#hotel-cards .card-img-top { height: 220px; object-fit: cover; border-radius: 0.75rem; }
+
+.price-input-group { display: flex; align-items: center; }
+.price-input-group .currency-symbol { font-size: 1.5rem; font-weight: 700; margin-right: 0.25rem; }
+.card .form-control { border: none; background-color: transparent !important; font-size: 1.5rem; font-weight: 700; padding: 0; }
+
+.card-title {
+    font-size: 1.5rem !important;
+    margin-bottom: 1rem;
+}
+
+/* --- SIDEBAR STYLING --- */
+.sidenav {
+    background-color: #fff;
+    border-right: 1px solid #dee2e6;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 2rem) !important;
+}
+.sidenav-header {
+    padding: 1.5rem;
+    text-align: center;
+    border-bottom: 1px solid #dee2e6;
+}
+#sidebar-logo {
+    width: 100%;
+    height: 300px; /* Maximized height */
+    object-fit: cover; /* Fill the container */
+}
+#sidenav-collapse-main { flex-grow: 1; overflow-y: auto; }
+.sidenav .nav-item h6 {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #6c757d;
+    padding: 0 1.5rem;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+#client-list .nav-item .nav-link {
+    display: flex;
+    align-items: center;
+    padding: 0.85rem 1.5rem;
+    margin: 0.2rem 1rem;
+    border-radius: 0.5rem;
+    color: #344767;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+}
+#client-list .nav-item .nav-link:hover { background-color: #e9ecef; }
+#client-list .nav-item .nav-link.active {
+    background-color: #344767;
+    color: #fff !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+.sidenav-footer {
+    padding: 1rem;
+    border-top: 1px solid #dee2e6;
+    margin-top: auto; /* This is the critical fix for the footer position */
+}
+.user-profile-layout { display: flex; align-items: center; }
+.user-profile-layout .avatar { width: 40px; height: 40px; margin-right: 0.75rem; border-radius: 50%; overflow: hidden; }
+.user-profile-layout .avatar img { width: 100%; height: 100%; object-fit: cover; }
+.user-profile-layout .user-info h5 { font-size: 1rem; margin-bottom: 0.1rem; }
+.user-profile-layout .user-info p { font-size: 0.8rem; color: #6c757d; }
+
+/* --- MAIN CONTENT STYLING --- */
+#date-picker.form-control { border: 1px solid #d2d6da !important; background-color: #fff !important; padding: 0.5rem 0.75rem !important; font-size: 1rem !important; font-weight: 400 !important; }
+.horizontal-divider { border-top: 1px solid #dee2e6; margin: 2rem 0; }
+
+/* --- MODAL STYLING --- */
+.modal { display: none; position: fixed; z-index: 1100; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.5); }
+.modal-content { position: relative; background-color: #fefefe; margin: 15% auto; padding: 2rem; border: none; width: 90%; max-width: 450px; border-radius: 0.75rem; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); text-align: center; }
+.close-button { position: absolute; top: 15px; right: 20px; color: #aaa; font-size: 28px; font-weight: bold; cursor: pointer; transition: color 0.2s ease; }
+.close-button:hover, .close-button:focus { color: black; }
+.modal-content h2 { margin-top: 0; margin-bottom: 1rem; font-weight: 600; }
+.modal-content p { line-height: 1.6; text-align: left; margin-bottom: 1.5rem; }
+.modal-content .btn { margin: 0.5rem; width: 130px; font-weight: 600; }
+
+/* --- CALL STATUS BANNER --- */
+#call-status-banner { position: sticky; top: 0; z-index: 1050; padding: 0.75rem 1.25rem; color: white; text-align: center; font-weight: 500; border-radius: 0; margin-bottom: 1.5rem; }
+.ongoing-call { background-color: #1a73e8; }
+.no-call { background-color: #6c757d; }
